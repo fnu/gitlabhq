@@ -29,3 +29,6 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.uncountable %w(commits)
 end
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.plural /(\.*[\u4e00-\u9fa5]+)$/i, '\1'
+end
