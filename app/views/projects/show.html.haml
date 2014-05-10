@@ -12,8 +12,8 @@
         .alert.alert-warning
           %h4
             %i.icon-warning-sign
-            Archived project!
-          %p Repository is read-only
+            归档的项目
+          %p 仓库只能读, 不能写
 
 
       - if @project.forked_from_project
@@ -37,7 +37,7 @@
           = render 'projects/repositories/download_archive', btn_class: 'btn-block btn-group-justified', split_button: true
 
         = link_to project_compare_index_path(@project, from: @repository.root_ref, to: @ref || @repository.root_ref), class: 'btn btn-block' do
-          Compare code
+          对比代码
 
         - if @repository.readme
           - readme = @repository.readme
@@ -46,12 +46,12 @@
 
     .prepend-top-10
       %p
-        %span.light Created on
-        #{@project.created_at.stamp('Aug 22, 2013')}
+        %span.light 创建于
+        #{@project.created_at.stamp('2014-05-05 13:01:01')}
       %p
-        %span.light Owned by
+        %span.light 所有者
         - if @project.group
-          #{link_to @project.group.name, @project.group} group
+          #{link_to @project.group.name, @project.group} 组
         - else
           #{link_to @project.owner_name, @project.owner}
 

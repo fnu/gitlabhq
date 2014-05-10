@@ -3,12 +3,12 @@
     .ui-box.ui-box-small
       - project = group[0]
       .title
-        = link_to_project project
-        = link_to 'show all', project_merge_requests_path(project), class: 'pull-right'
+        = link_to_project 项目
+        = link_to '显示全部', project_merge_requests_path(project), class: 'pull-right'
       %ul.well-list.mr-list
         - group[1].each do |merge_request|
           = render 'projects/merge_requests/merge_request', merge_request: merge_request
   = paginate @merge_requests, theme: "gitlab"
 
 - else
-  .nothing-here-block No merge requests to show
+  .nothing-here-block 没有相关的合并请求

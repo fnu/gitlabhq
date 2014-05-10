@@ -1,50 +1,50 @@
 %h3.page-title
-  Notifications settings
+  通知设置
 %p.light
-  GitLab uses the email specified in your profile for notifications
+  GitLab 将发送通知邮件到您的 "主邮箱"
 %hr
 = form_tag profile_notifications_path, method: :put, remote: true, class: 'update-notifications form-horizontal global-notifications-form' do
   = hidden_field_tag :notification_type, 'global'
 
-  = label_tag :notification_level, 'Notification level', class: 'control-label'
+  = label_tag :notification_level, '通知级别', class: 'control-label'
   .col-sm-10
     .radio
       = label_tag nil, class: '' do
         = radio_button_tag :notification_level, Notification::N_DISABLED, @notification.disabled?, class: 'trigger-submit'
         .level-title
-          Disabled
-        %p You will not get any notifications via email
+          禁用通知
+        %p 你不会得到任何邮件通知
 
     .radio
       = label_tag nil, class: '' do
         = radio_button_tag :notification_level, Notification::N_PARTICIPATING, @notification.participating?, class: 'trigger-submit'
         .level-title
-          Participating
-        %p You will only receive notifications from related resources (e.g. from your commits or assigned issues)
+          参与
+        %p 相关的资源通知 (例如:您的提交或分配事务等)
 
     .radio
       = label_tag nil, class: '' do
         = radio_button_tag :notification_level, Notification::N_WATCH, @notification.watch?, class: 'trigger-submit'
         .level-title
-          Watch
-        %p You will receive all notifications from projects in which you participate
+          关注
+        %p 所有您参与的项目的通知
 
 .clearfix
   %hr
   %p
-    You can also specify notification level per group or per project
+    您也可以为每个组或每个项目指定通知级别
     %br
-    By default all projects and groups uses notification level set above
+    默认情况下, 所有的项目和组使用上面的通知级别设置
 .row.all-notifications
   .col-md-6
-    %h4 Groups:
+    %h4 组:
     %ul.bordered-list
       - @users_groups.each do |users_group|
         - notification = Notification.new(users_group)
         = render 'settings', type: 'group', membership: users_group, notification: notification
 
   .col-md-6
-    %h4 Projects:
+    %h4 项目:
     %ul.bordered-list
       - @users_projects.each do |users_project|
         - notification = Notification.new(users_project)

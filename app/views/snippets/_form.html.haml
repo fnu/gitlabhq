@@ -1,5 +1,5 @@
 %h3.page-title
-  = @snippet.new_record? ? "New Snippet" : "Edit Snippet ##{@snippet.id}"
+  = @snippet.new_record? ? "新建代码片段" : "编辑代码片段 ##{@snippet.id}"
 %hr
 .snippet-form-holder
   = form_for @snippet, as: :personal_snippet, url: url, html: { class: "form-horizontal snippet-form" } do |f|
@@ -10,26 +10,26 @@
             %li= msg
 
     .form-group
-      = f.label :title, class: 'control-label'
-      .col-sm-10= f.text_field :title, placeholder: "Example Snippet", class: 'form-control', required: true
+      = f.label "标题", class: 'control-label'
+      .col-sm-10= f.text_field :title, placeholder: "一段有趣的代码", class: 'form-control', required: true
     .form-group
-      = f.label "Access", class: 'control-label'
+      = f.label "权限", class: 'control-label'
       .col-sm-10
         = f.label :private_true, class: 'radio-label' do
           = f.radio_button :private, true
           %span
-            %strong Private
-            (only you can see this snippet)
+            %strong 私有的
+            (只有自己才能查看)
         %br
         = f.label :private_false, class: 'radio-label' do
           = f.radio_button :private, false
           %span
-            %strong Public
-            (GitLab users can see this snippet)
+            %strong 公共的
+            (所有人都能看)
 
     .form-group
       .file-editor
-        = f.label :file_name, "File", class: 'control-label'
+        = f.label :file_name, "文件名", class: 'control-label'
         .col-sm-10
           .file-holder.snippet
             .file-title
@@ -40,14 +40,14 @@
 
     .form-actions
       - if @snippet.new_record?
-        = f.submit 'Create snippet', class: "btn-create btn"
+        = f.submit '创建代码片段', class: "btn-create btn"
       - else
-        = f.submit 'Save', class: "btn-save btn"
+        = f.submit '保存', class: "btn-save btn"
 
       - unless @snippet.new_record?
         .pull-right.prepend-left-20
-          = link_to 'Remove', snippet_path(@snippet), data: { confirm: 'Removed snippet cannot be restored! Are you sure?'}, method: :delete, class: "btn btn-remove delete-snippet", id: "destroy_snippet_#{@snippet.id}"
-      = link_to "Cancel", snippets_path(@project), class: "btn btn-cancel"
+          = link_to '删除', snippet_path(@snippet), data: { confirm: '删除后无法恢复, 您确定删除吗?'}, method: :delete, class: "btn btn-remove delete-snippet", id: "destroy_snippet_#{@snippet.id}"
+      = link_to "取消", snippets_path(@project), class: "btn btn-cancel"
 
 
 :javascript

@@ -1,18 +1,18 @@
 %h3.page-title
-  My SSH keys
+  我的 SSH 公钥
   .pull-right
-    = link_to "Add SSH Key", new_profile_key_path, class: "btn btn-new"
+    = link_to "添加 SSH 公钥", new_profile_key_path, class: "btn btn-new"
 %p.light
-  SSH keys allow you to establish a secure connection between your computer and GitLab
+  SSH 公钥, 是用于建立您的电脑与GitLab之间的安全连接
   %br
-  Before you can add an SSH key you need to
-  = link_to "generate it", help_ssh_path
+  如果您没有 SSH 密钥, 请参考
+  = link_to "如何生成 SSH 密钥", help_ssh_path
 %hr
 
 
 .ui-box
   .title
-    SSH Keys (#{@keys.count})
+    SSH 公钥 (#{@keys.count})
   %ul.well-list#keys-table
     = render @keys
     - if @keys.blank?

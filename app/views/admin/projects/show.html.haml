@@ -1,43 +1,43 @@
 %h3.page-title
-  Project: #{@project.name_with_namespace}
+  项目: #{@project.name_with_namespace}
   = link_to edit_project_path(@project), class: "btn pull-right" do
     %i.icon-edit
-    Edit
+    编辑
 %hr
 .row
   .col-md-6
     .ui-box
       .title
-        Project info:
+        项目信息:
       %ul.well-list
         %li
-          %span.light Name:
+          %span.light 名称:
           %strong
             = link_to @project.name, project_path(@project)
         %li
-          %span.light Namespace:
+          %span.light 命名空间:
           %strong
             - if @project.namespace
               = link_to @project.namespace.human_name, [:admin, @project.group || @project.owner]
             - else
-              Global
+              全局
         %li
-          %span.light Owned by:
+          %span.light 所有者:
           %strong
             - if @project.owner
               = link_to @project.owner_name, [:admin, @project.owner]
             - else
-              (deleted)
+              (删除)
 
         %li
-          %span.light Created by:
+          %span.light 创建者:
           %strong
-            = @project.creator.try(:name) || '(deleted)'
+            = @project.creator.try(:name) || '(删除)'
 
         %li
-          %span.light Created on:
+          %span.light 创建于:
           %strong
-            = @project.created_at.stamp("March 1, 1999")
+            = @project.created_at.stamp("2014-05-05 13:01:01")
 
         %li
           %span.light http:
@@ -59,17 +59,17 @@
               = repository_size(@project)
 
           %li
-            %span.light last commit:
+            %span.light 最后提交:
             %strong
               = last_commit(@project)
         - else
           %li
             %span.light repository:
             %strong.cred
-              does not exist
+              不存在
 
         %li
-          %span.light access:
+          %span.light 权限:
           %strong
             %span{ class: visibility_level_color(@project.visibility_level) }
               = visibility_level_icon(@project.visibility_level)
@@ -77,7 +77,7 @@
 
     .ui-box
       .title
-        Transfer project
+        转让项目
       .body
         = form_for @project, url: transfer_admin_project_path(@project), method: :put, html: { class: 'form-horizontal' } do |f|
           .form-group
@@ -95,7 +95,7 @@
       .ui-box
         .title
           %strong #{@group.name}
-          group members (#{@group.users_groups.count})
+          组成员 (#{@group.users_groups.count})
           .pull-right
             = link_to admin_group_path(@group), class: 'btn btn-small' do
               %i.icon-edit
@@ -105,13 +105,13 @@
 
     .ui-box
       .title
-        Project members
+        项目成员
         %small
           (#{@project.users.count})
         .pull-right
           = link_to project_team_index_path(@project), class: "btn btn-tiny" do
             %i.icon-edit
-            Manage Access
+            管理
       %ul.well-list.team_members
         - @project.users_projects.each do |users_project|
           - user = users_project.user
@@ -121,7 +121,7 @@
                 = link_to user.name, admin_user_path(user)
             .pull-right
               - if users_project.owner?
-                %span.light Owner
+                %span.light 所有者
               - else
                 %span.light= users_project.human_access
                 = link_to project_team_member_path(@project, user), data: { confirm: remove_from_project_team_message(@project, user)}, method: :delete, remote: true, class: "btn btn-small btn-remove" do

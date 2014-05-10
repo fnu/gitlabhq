@@ -2,27 +2,27 @@
   %ul.nav.nav-pills.nav-stacked
     = nav_tab :scope, nil do
       = link_to projects_dashboard_filter_path(scope: nil) do
-        All
+        全部
         %span.pull-right
           = current_user.authorized_projects.count
     = nav_tab :scope, 'personal' do
       = link_to projects_dashboard_filter_path(scope: 'personal') do
-        Personal
+        个人的
         %span.pull-right
           = current_user.personal_projects.count
     = nav_tab :scope, 'joined' do
       = link_to projects_dashboard_filter_path(scope: 'joined') do
-        Joined
+        参与的
         %span.pull-right
           = current_user.authorized_projects.joined(current_user).count
     = nav_tab :scope, 'owned' do
       = link_to projects_dashboard_filter_path(scope: 'owned') do
-        Owned
+        所有者
         %span.pull-right
           = current_user.owned_projects.count
 
 %fieldset
-  %legend Visibility
+  %legend 权限
   %ul.nav.nav-pills.nav-stacked.nav-small.visibility-filter
     - Gitlab::VisibilityLevel.values.each do |level|
       %li{ class: (level.to_s == params[:visibility_level]) ? 'active' : 'light' }
@@ -32,7 +32,7 @@
 
 - if @groups.present?
   %fieldset
-    %legend Groups
+    %legend 组
     %ul.nav.nav-pills.nav-stacked.nav-small
       - @groups.each do |group|
         %li{ class: (group.name == params[:group]) ? 'active' : 'light' }
@@ -46,7 +46,7 @@
 
 - if @labels.present?
   %fieldset
-    %legend Labels
+    %legend 标签
     %ul.nav.nav-pills.nav-stacked.nav-small
       - @labels.each do |label|
         %li{ class: (label.name == params[:label]) ? 'active' : 'light' }

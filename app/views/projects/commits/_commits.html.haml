@@ -3,8 +3,8 @@
     .col-md-2
       %h4
         %i.icon-calendar
-        %span= day.stamp("28 Aug, 2010")
-      %p= pluralize(commits.count, 'commit')
+        %span= day.stamp("2014-05-05")
+      %p= pluralize(commits.count, '提交')
     .col-md-10
       %ul.well-list
         = render commits, project: @project

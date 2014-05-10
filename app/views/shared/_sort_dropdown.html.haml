@@ -4,19 +4,19 @@
     - if @sort.present?
       = @sort
     - else
-      Newest
+      最新的
     %b.caret
   %ul.dropdown-menu
     %li
       = link_to project_filter_path(sort: 'newest') do
-        Newest
+        最新的
       = link_to project_filter_path(sort: 'oldest') do
-        Oldest
+        最旧的
       = link_to project_filter_path(sort: 'recently_updated') do
-        Recently updated
+        最近更新的
       = link_to project_filter_path(sort: 'last_updated') do
-        Last updated
+        最久更新的
       = link_to project_filter_path(sort: 'milestone_due_soon') do
-        Milestone due soon
+        即将到期的里程碑
       = link_to project_filter_path(sort: 'milestone_due_later') do
-        Milestone due later
+        已到期的里程碑

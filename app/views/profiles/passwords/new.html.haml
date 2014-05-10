@@ -1,4 +1,4 @@
-%h3.page-title Setup new password
+%h3.page-title 设置新密码
 %hr
 = form_for @user, url: profile_password_path, method: :post, html: { class: 'form-horizontal '} do |f|
   %p.slead
@@ -19,4 +19,4 @@
     .col-sm-10
       = f.password_field :password_confirmation, required: true, class: 'form-control'
   .form-actions
-    = f.submit 'Set new password', class: "btn btn-create"
+    = f.submit '提交', class: "btn btn-create"

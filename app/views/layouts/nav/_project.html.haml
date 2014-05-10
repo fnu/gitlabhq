@@ -5,31 +5,31 @@
 
   - if project_nav_tab? :files
     = nav_link(controller: %w(tree blob blame edit_tree new_tree)) do
-      = link_to 'Files', project_tree_path(@project, @ref || @repository.root_ref)
+      = link_to '文件', project_tree_path(@project, @ref || @repository.root_ref)
 
   - if project_nav_tab? :commits
     = nav_link(controller: %w(commit commits compare repositories protected_branches tags branches)) do
-      = link_to "Commits", project_commits_path(@project, @ref || @repository.root_ref)
+      = link_to "提交", project_commits_path(@project, @ref || @repository.root_ref)
 
   - if project_nav_tab? :network
     = nav_link(controller: %w(network)) do
-      = link_to "Network", project_network_path(@project, @ref || @repository.root_ref)
+      = link_to "网络", project_network_path(@project, @ref || @repository.root_ref)
 
   - if project_nav_tab? :graphs
     = nav_link(controller: %w(graphs)) do
-      = link_to "Graphs", project_graph_path(@project, @ref || @repository.root_ref)
+      = link_to "图表", project_graph_path(@project, @ref || @repository.root_ref)
 
   - if project_nav_tab? :issues
     = nav_link(controller: %w(issues milestones labels)) do
       = link_to url_for_project_issues do
-        Issues
+        事务
         - if @project.used_default_issues_tracker?
           %span.count.issue_counter= @project.issues.opened.count
 
   - if project_nav_tab? :merge_requests
     = nav_link(controller: :merge_requests) do
       = link_to project_merge_requests_path(@project) do
-        Merge Requests
+        合并请求
         %span.count.merge_counter= @project.merge_requests.opened.count
 
   - if project_nav_tab? :wiki
@@ -38,13 +38,13 @@
 
   - if project_nav_tab? :wall
     = nav_link(controller: :walls) do
-      = link_to 'Wall', project_wall_path(@project)
+      = link_to '白板', project_wall_path(@project)
 
   - if project_nav_tab? :snippets
     = nav_link(controller: :snippets) do
-      = link_to 'Snippets', project_snippets_path(@project)
+      = link_to '代码片段', project_snippets_path(@project)
 
   - if project_nav_tab? :settings
     = nav_link(html_options: {class: "#{project_tab_class}"}) do
       = link_to edit_project_path(@project), class: "stat-tab tab " do
-        Settings
+        设置

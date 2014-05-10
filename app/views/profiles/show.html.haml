@@ -1,9 +1,9 @@
 %h3.page-title
-  Profile settings
+  我的资料
 %p.light
-  This information appears on your profile.
+  您可以在这里设置您的个人资料
   - if current_user.ldap_user?
-    Some options are unavailable for LDAP accounts
+    有些选项是对LDAP帐户不可用
 %hr
 
 
@@ -17,10 +17,10 @@
   .row
     .col-md-7
       .form-group
-        = f.label :name, class: "control-label"
+        = f.label :name, "姓名", class: "control-label"
         .col-sm-10
           = f.text_field :name, class: "form-control", required: true
-          %span.help-block Enter your name, so people you know can recognize you.
+          %span.help-block 请输入您的姓名, 让更多的人认识您.
 
       .form-group
         = f.label :email, class: "control-label"
@@ -40,7 +40,7 @@
                 %strong #{@user.unconfirmed_email}
 
             - else
-              %span.help-block We also use email for avatar detection if no avatar is uploaded.
+              %span.help-block 如果没有上传头像, 系统将来采用邮箱地址地址来检测头像..
       .form-group
         = f.label :skype, class: "control-label"
         .col-sm-10= f.text_field :skype, class: "form-control"
@@ -57,7 +57,7 @@
         = f.label :bio, class: "control-label"
         .col-sm-10
           = f.text_area :bio, rows: 6, class: "form-control", maxlength: 250
-          %span.help-block Tell us about yourself in fewer than 250 characters.
+          %span.help-block 个人简介, 最多250字节.
 
     .col-md-5
       .light-well
@@ -87,4 +87,4 @@
               = link_to 'Remove avatar', profile_avatar_path, data: { confirm: "Avatar will be removed. Are you sure?"}, method: :delete, class: "btn btn-remove btn-small remove-avatar"
 
   .form-actions
-    = f.submit 'Save changes', class: "btn btn-save"
+    = f.submit '保存', class: "btn btn-save"

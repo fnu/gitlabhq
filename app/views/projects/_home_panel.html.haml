@@ -1,6 +1,6 @@
 - empty_repo = @project.empty_repo?
 .project-home-panel{:class => ("empty-project" if empty_repo)}
-  .visibility-level-label.has_tooltip{'data-title' => "#{visibility_level_label(@project.visibility_level)} project" }
+  .visibility-level-label.has_tooltip{'data-title' => "#{visibility_level_label(@project.visibility_level)} 项目" }
     = visibility_level_icon(@project.visibility_level)
   .row
     .col-sm-6
@@ -20,12 +20,12 @@
           = @project.description
         - if can?(current_user, :admin_project, @project)
           &ndash;
-          %strong= link_to 'Edit', edit_project_path
+          %strong= link_to '编辑', edit_project_path
 
     - unless empty_repo
       .col-md-4
         .project-home-links
-          = link_to pluralize(number_with_delimiter(@repository.commit_count), 'commit'), project_commits_path(@project, @ref || @repository.root_ref)
-          = link_to pluralize(number_with_delimiter(@repository.branch_names.count), 'branch'), project_branches_path(@project)
-          = link_to pluralize(number_with_delimiter(@repository.tag_names.count), 'tag'), project_tags_path(@project)
+          = link_to pluralize(number_with_delimiter(@repository.commit_count), ' 提交'), project_commits_path(@project, @ref || @repository.root_ref)
+          = link_to pluralize(number_with_delimiter(@repository.branch_names.count), ' 分支'), project_branches_path(@project)
+          = link_to pluralize(number_with_delimiter(@repository.tag_names.count), ' 标签'), project_tags_path(@project)
           %span.light.prepend-left-20= repository_size

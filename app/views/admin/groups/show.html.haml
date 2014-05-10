@@ -1,37 +1,37 @@
 %h3.page-title
-  Group: #{@group.name}
+  组: #{@group.name}
 
   = link_to edit_admin_group_path(@group), class: "btn btn-small pull-right" do
     %i.icon-edit
-    Edit
+    编辑
 %hr
 .row
   .col-md-6
     .ui-box
       .title
-        Group info:
+        组信息:
       %ul.well-list
         %li
-          %span.light Name:
+          %span.light 名称:
           %strong= @group.name
         %li
-          %span.light Path:
+          %span.light 路径:
           %strong
             = @group.path
 
         %li
-          %span.light Description:
+          %span.light 详细资料:
           %strong
             = @group.description
 
         %li
-          %span.light Created on:
+          %span.light 创建于:
           %strong
-            = @group.created_at.stamp("March 1, 1999")
+            = @group.created_at.stamp("2014-05-05 13:01:01")
 
     .ui-box
       .title
-        Projects
+        项目
         %small
           (#{@group.projects.count})
       %ul.well-list
@@ -47,11 +47,11 @@
   .col-md-6
     .ui-box
       .title
-        Add user(s) to the group:
+        添加一个或多个用户到这个组:
       .body.form-holder
         %p.light
-          Read more about project permissions
-          %strong= link_to "here", help_permissions_path, class: "vlink"
+          了解更多关于
+          %strong= link_to "项目的权限", help_permissions_path, class: "vlink"
 
         = form_tag project_teams_update_admin_group_path(@group), id: "new_team_member", class: "bulk_import", method: :put  do
           %div
@@ -59,11 +59,11 @@
           %div.prepend-top-10
             = select_tag :group_access, options_for_select(UsersGroup.group_access_roles), class: "project-access-select select2"
           %hr
-          = submit_tag 'Add users into group', class: "btn btn-create"
+          = submit_tag '将用户添加到组', class: "btn btn-create"
     .ui-box
       .title
         %strong #{@group.name}
-        Group Members
+        组成员
         %small
           (#{@group.users_groups.count})
       %ul.well-list.group-users-list

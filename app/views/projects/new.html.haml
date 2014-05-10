@@ -6,14 +6,14 @@
     = form_for @project, remote: true, html: { class: 'new_project form-horizontal' } do |f|
       .form-group.project-name-holder
         = f.label :name, class: 'control-label' do
-          %strong Project name
+          %strong 项目名称
         .col-sm-10
           = f.text_field :name, placeholder: "Example Project", class: "form-control", tabindex: 1, autofocus: true
 
       - if current_user.can_select_namespace?
         .form-group
           = f.label :namespace_id, class: 'control-label' do
-            %span Namespace
+            %span 命名空间
           .col-sm-10
             = f.select :namespace_id, namespaces_options(params[:namespace_id] || :current_user), {}, {class: 'select2', tabindex: 2}
 
@@ -24,11 +24,11 @@
           .col-sm-10
             = link_to "#", class: 'js-toggle-button' do
               %i.icon-edit
-              %span Customize repository name?
+              %span 自定义仓库的名称?
         .js-toggle-content.hide
           .form-group
             = f.label :path, class: 'control-label' do
-              %span Repository name
+              %span 仓库名称
             .col-sm-10
               .input-group
                 = f.text_field :path, class: 'form-control'
@@ -40,40 +40,40 @@
           .col-sm-10
             = link_to "#", class: 'js-toggle-button' do
               %i.icon-upload-alt
-              %span Import existing repository?
+              %span 导入已有的仓库?
         .js-toggle-content.hide
           .form-group.import-url-data
             = f.label :import_url, class: 'control-label' do
-              %span Import existing repo
+              %span 已有仓库的地址
             .col-sm-10
               = f.text_field :import_url, class: 'form-control', placeholder: 'https://github.com/randx/six.git'
               .bs-callout.bs-callout-info
-                This url must be publicly accessible or you can add a username and password like this: https://username:password@gitlab.com/company/project.git.
+                如果URL不是公开的, 请试试这样的格式: https://username:password@gitlab.com/company/project.git.
                 %br
-                The import will time out after 2 minutes. For big repositories, use a clone/push combination.
+                此接口只有2分钟的运行时间. 对于大的仓库, 建议在客户端先 clone 下来, 然后再 push 到这里.
       %hr
 
       .form-group
         = f.label :description, class: 'control-label' do
-          Description
-          %span.light (optional)
+          项目详细说明
+          %span.light (可选)
         .col-sm-10
-          = f.text_area :description, placeholder: "Awesome project", class: "form-control", rows: 3, maxlength: 250, tabindex: 3
+          = f.text_area :description, placeholder: "这是一个很有趣的项目", class: "form-control", rows: 3, maxlength: 250, tabindex: 3
       = render "visibility_level", f: f, visibility_level: gitlab_config.default_projects_features.visibility_level, can_change_visibility_level: true
 
       .form-actions
-        = f.submit 'Create project', class: "btn btn-create project-submit", tabindex: 4
+        = f.submit '创建项目', class: "btn btn-create project-submit", tabindex: 4
 
         - if current_user.can_create_group?
           .pull-right
             .light
-              Need a group for several dependent projects?
+              需要用一个"组"来管理这些项目?
               = link_to new_group_path, class: "btn btn-tiny" do
-                Create a group
+                新建 组
 
 .save-project-loader.hide
   %center
     %h2
       %i.icon-spinner.icon-spin
-      Creating project &amp; repository.
-    %p Please wait a moment, this page will automatically refresh when ready.
+      正在创建项目 &amp; 仓库.
+    %p 请稍等, 页面会在项目准备好之后自动刷新.

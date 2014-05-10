@@ -3,29 +3,29 @@
   .project-edit-content
     %div
       %h3.page-title
-        Project settings:
-      %p.light Some settings, such as "Transfer Project", are hidden inside the danger area below
+        项目设置:
+      %p.light 某些设置, 如 "项目转让", 隐藏在下面的危险区域内
       %hr
       .form-holder
         = form_for @project, remote: true, html: { class: "edit_project form-horizontal" } do |f|
           %fieldset
             .form-group.project_name_holder
               = f.label :name, class: 'control-label' do
-                Project name
+                项目名称
               .col-sm-10
                 = f.text_field :name, placeholder: "Example Project", class: "form-control"
 
 
             .form-group
               = f.label :description, class: 'control-label' do
-                Project description
-                %span.light (optional)
+                项目详细说明
+                %span.light (可选)
               .col-sm-10
-                = f.text_area :description, placeholder: "Awesome project", class: "form-control", rows: 3, maxlength: 250
+                = f.text_area :description, placeholder: "这是一个很有趣的项目", class: "form-control", rows: 3, maxlength: 250
 
             - if @project.repository.exists? && @project.repository.branch_names.any?
               .form-group
-                = f.label :default_branch, "Default Branch", class: 'control-label'
+                = f.label :default_branch, "默认分支", class: 'control-label'
                 .col-sm-10= f.select(:default_branch, @repository.branch_names, {}, {class: 'select2 select-wide'})
 
 
@@ -33,63 +33,63 @@
 
           %fieldset.features
             %legend
-              Labels:
+              标签:
             .form-group
-              = f.label :label_list, "Labels", class: 'control-label'
+              = f.label :label_list, "标签", class: 'control-label'
               .col-sm-10
                 = f.text_field :label_list, maxlength: 2000, class: "form-control"
-                %p.hint Separate labels with commas.
+                %p.hint 多个标签, 用逗号分割..
 
           %fieldset.features
             %legend
-              Features:
+              功能模块:
             .form-group
-              = f.label :issues_enabled, "Issues", class: 'control-label'
+              = f.label :issues_enabled, "事务", class: 'control-label'
               .col-sm-10
                 .checkbox
                   = f.check_box :issues_enabled
-                  %span.descr Lightweight issue tracking system for this project
+                  %span.descr 轻量级的问题跟踪系统, 简单,好用!
 
             - if Project.issues_tracker.values.count > 1
               .form-group
-                = f.label :issues_tracker, "Issues tracker", class: 'control-label'
+                = f.label :issues_tracker, "事务跟踪器", class: 'control-label'
                 .col-sm-10= f.select(:issues_tracker, project_issues_trackers(@project.issues_tracker), {}, { disabled: !@project.issues_enabled })
 
               .form-group
-                = f.label :issues_tracker_id, "Project name or id in issues tracker", class: 'control-label'
+                = f.label :issues_tracker_id, "项目名称, 或者事务的ID", class: 'control-label'
                 .col-sm-10= f.text_field :issues_tracker_id, disabled: !@project.can_have_issues_tracker_id?, class: 'form-control'
 
             .form-group
-              = f.label :merge_requests_enabled, "Merge Requests", class: 'control-label'
+              = f.label :merge_requests_enabled, "合并请求", class: 'control-label'
               .col-sm-10
                 .checkbox
                   = f.check_box :merge_requests_enabled
-                  %span.descr Submit changes to be merged upstream.
+                  %span.descr 合并更改到上游或其他分支.
 
             .form-group
               = f.label :wiki_enabled, "Wiki", class: 'control-label'
               .col-sm-10
                 .checkbox
                   = f.check_box :wiki_enabled
-                  %span.descr Pages for project documentation
+                  %span.descr可以用作项目的文档说明
 
             .form-group
-              = f.label :wall_enabled, "Wall", class: 'control-label'
+              = f.label :wall_enabled, "白板", class: 'control-label'
               .col-sm-10
                 .checkbox
                   = f.check_box :wall_enabled
-                  %span.descr Simple chat system for broadcasting inside project
+                  %span.descr 项目内部的简单聊天系统
 
             .form-group
-              = f.label :snippets_enabled, "Snippets", class: 'control-label'
+              = f.label :snippets_enabled, "代码片段", class: 'control-label'
               .col-sm-10
                 .checkbox
                   = f.check_box :snippets_enabled
-                  %span.descr Share code pastes with others out of git repository
+                  %span.descr 分享一些代码
 
 
           .form-actions
-            = f.submit 'Save changes', class: "btn btn-save"
+            = f.submit '保存', class: "btn btn-save"
 
 
 
@@ -97,11 +97,12 @@
       .centered-light-block
         %h3
           %i.icon-warning-sign
-          Dangerous settings
+          危险的设置
 
-        %p Project settings below may result in data loss!
+        %p 下面的设置比较危险, 可能会导致数据丢失!
+        %p 如果你一定要这么干, 哥们, 请自求多福吧.
         = link_to '#', class: 'btn js-toggle-button' do
-          Show it to me
+          显示
           %i.icon-chevron-down
 
       .js-toggle-content.hide
@@ -109,61 +110,62 @@
           .ui-box.ui-box-danger
             .title
               - if @project.archived?
-                Unarchive project
+                取消存档
               - else
-                Archive project
+                存档
             .body
               - if @project.archived?
                 %p
-                  Unarchiving the project will mark its repository as active.
+                  取消存档, 意味项目将作为活动的资源库.
                   %br
-                  The project can be committed to.
+                  此项目将能接受 push, commit, merge 等操作.
                   %br
-                  %strong Once active this project shows up in the search and on the dashboard.
-                = link_to 'Unarchive', unarchive_project_path(@project),
-                    data: { confirm: "Are you sure that you want to unarchive this project?\nWhen this project is unarchived it is active and can be comitted to again." },
+                  %strong 一旦激活, 此项目将显示在 "仪表板" 上, 并能被搜索到.
+                = link_to '取消存档', unarchive_project_path(@project),
+                    data: { confirm: "您确定要取消项目的存档?\n这意味此项目将接受 push, commit, merge 等操作." },
                     method: :post, class: "btn btn-remove"
               - else
                 %p
-                  Archiving the project will mark its repository as read-only.
+                  项目存档后, 只能读, 不能写.
                   %br
-                  It is hidden from the dashboard and doesn't show up in searches.
+                  它是从仪表盘中隐藏, 也不能被搜索.
                   %br
-                  %strong Archived projects cannot be committed to!
+                  %strong 存档项目, 不能接受 push, commit, merge 等写操作!
                 = link_to 'Archive', archive_project_path(@project),
-                    data: { confirm: "Are you sure that you want to archive this project?\nAn archived project cannot be committed to." },
+                    data: { confirm: "您确定要存档?\n存档项目, 不能接受 push, commit, merge 等写操作!" },
                     method: :post, class: "btn btn-remove"
         - else
-          .nothing-here-block Only the project owner can archive a project
+          .nothing-here-block 只有项目的所有者, 才能执行此操作
 
         - if can?(current_user, :change_namespace, @project)
           .ui-box.ui-box-danger
-            .title Transfer project
+            .title 项目转让
             .errors-holder
             .form-holder
               = form_for(@project, url: transfer_project_path(@project), method: :put, remote: true, html: { class: 'transfer-project form-horizontal' }) do |f|
                 .form-group
                   = f.label :namespace_id, class: 'control-label' do
-                    %span Namespace
+                    %span 命名空间
                   .col-sm-10
                     .form-group
                       = f.select :namespace_id, namespaces_options(@project.namespace_id), { prompt: 'Choose a project namespace' }, { class: 'select2' }
                     %ul
-                      %li Be careful. Changing the project's namespace can have unintended side effects.
-                      %li You can only transfer the project to namespaces you manage.
-                      %li You will need to update your local repositories to point to the new location.
+                      %li 一定要小心! 更改项目的命名空间可能有意想不到的副作用.
+                      %li 您只能将项目转移到您有管理权限的名称空间.
+                      %li 您需要更新您本地仓库的配置, 指向新的地址.
+
                 .form-actions
-                  = f.submit 'Transfer', class: "btn btn-remove"
+                  = f.submit '转让', class: "btn btn-remove"
         - else
-          .nothing-here-block Only the project owner can transfer a project
+          .nothing-here-block 只有项目的所有者, 才能执行此操作
 
         .ui-box.ui-box-danger
-          .title Rename repository
+          .title 项目重命名
           .errors-holder
           .form-holder
             = form_for(@project, html: { class: 'form-horizontal' }) do |f|
               .form-group
-                = f.label :path, class: 'control-label' do
+                = f.label :path, "名称", class: 'control-label' do
                   %span Path
                 .col-sm-9
                   .form-group
@@ -171,27 +173,28 @@
                       = f.text_field :path, class: 'form-control'
                       %span.input-group-addon .git
                   %ul
-                    %li Be careful. Renaming a project's repository can have unintended side effects.
-                    %li You will need to update your local repositories to point to the new location.
+                    %li 一定要小心! 更改项目的名称可能有意想不到的副作用.
+                    %li 你需要更新你的本地仓库的配置, 指向新地址.
+
               .form-actions
-                = f.submit 'Rename', class: "btn btn-remove"
+                = f.submit '重命名', class: "btn btn-remove"
 
         - if can?(current_user, :remove_project, @project)
           .ui-box.ui-box-danger
-            .title Remove project
+            .title 删除项目
             .body
               %p
-                Removing the project will delete its repository and all related resources including issues, merge requests etc.
+                删除项目的所有资料, 包括源代码, 问题, 合并请求 等等. .
                 %br
-                %strong Removed projects cannot be restored!
+                %strong 删除的项目无法恢复!
 
-              = link_to 'Remove project', @project, data: { confirm: remove_project_message(@project) }, method: :delete, class: "btn btn-remove"
+              = link_to '删除项目', @project, data: { confirm: remove_project_message(@project) }, method: :delete, class: "btn btn-remove"
         - else
-          .nothing-here-block Only project owner can remove a project
+          .nothing-here-block 只有项目所有者, 才能执行此操作
 
 .save-project-loader.hide
   %center
     %h2
       %i.icon-spinner.icon-spin
-      Saving project.
-    %p Please wait a moment, this page will automatically refresh when ready.
+      保存中...
+    %p 请稍等, 页面会在项目准备好之后自动刷新.

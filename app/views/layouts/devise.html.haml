@@ -1,5 +1,5 @@
 !!! 5
-%html{ lang: "en"}
+%html{ lang: "zh"}
   = render "layouts/head"
   %body.ui_basic.login-page
     = render "layouts/flash"
@@ -8,9 +8,9 @@
         %center
           %h1 GitLab
           %p.light
-            GitLab is open source software to collaborate on code.
+            GitLab 是一个开源的代码协作平台.
             %br
-            #{link_to "Sign in", new_user_session_path} or browse for #{link_to "public projects", public_projects_path}.
+            #{link_to "登录", new_user_session_path} 或者浏览一下 #{link_to "公共项目", public_projects_path}.
     %hr
     .container
       .content
