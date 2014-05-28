@@ -5,8 +5,8 @@
 - else
   .bs-callout.bs-callout-warning
     %h4
-      Changes view for this comparison is extremely large.
+      此更改非常大, 无法通过Web显示.
     %p
-      You can
-      = link_to "download it", project_merge_request_path(@merge_request.target_project, @merge_request, format: :diff), class: "vlink"
-      instead.
+      您可以下载
+      = link_to "下载", project_merge_request_path(@merge_request.target_project, @merge_request, format: :diff), class: "vlink"
+      这此差异.

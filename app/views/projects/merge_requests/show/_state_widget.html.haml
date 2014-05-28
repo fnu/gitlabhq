@@ -11,13 +11,13 @@
 
     - if @merge_request.closed?
       %h4
-        Closed by #{link_to_member(@project, @merge_request.closed_event.author, avatar: false)}
+        关闭者: #{link_to_member(@project, @merge_request.closed_event.author, avatar: false)}
         #{time_ago_with_tooltip(@merge_request.closed_event.created_at)}
-      %p Changes was not merged into target branch
+      %p 更改不会被合并到目标分支
 
     - if @merge_request.merged?
       %h4
-        Merged by #{link_to_member(@project, @merge_request.merge_event.author, avatar: false)}
+        合并者: #{link_to_member(@project, @merge_request.merge_event.author, avatar: false)}
         #{time_ago_with_tooltip(@merge_request.merge_event.created_at)}
       = render "projects/merge_requests/show/remove_source_branch"
 
@@ -30,11 +30,11 @@
             != gfm(@closes_issues.map { |i| "##{i.iid}" }.to_sentence)
 
     - unless @commits.any?
-      %h4 Nothing to merge
+      %h4 没有什么要合并
       %p
-        Nothing to merge from
+        没有什么要从
         %span.label-branch #{@merge_request.source_branch}
-        to
+        合并到
         %span.label-branch #{@merge_request.target_branch}
         %br
-        Try to use different branches or push new code.
+        请尝试使用不同的分支或推新代码.

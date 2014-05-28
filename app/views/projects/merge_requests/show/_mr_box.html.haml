@@ -2,14 +2,14 @@
   .state
     %span.state-label
       - if @merge_request.merged?
-        Merged
+        已合并
       - elsif @merge_request.closed?
-        Closed
+        已关闭
       - else
-        Open
+        未合并
 
     %span.creator
-      Created by #{link_to_member(@project, @merge_request.author)} #{time_ago_with_tooltip(@merge_request.created_at)}
+      创建者 #{link_to_member(@project, @merge_request.author)} #{time_ago_with_tooltip(@merge_request.created_at)}
 
   %h4.title
     = gfm escape_once(@merge_request.title)
